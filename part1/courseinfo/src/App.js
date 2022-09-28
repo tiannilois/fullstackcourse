@@ -1,20 +1,38 @@
-function Header(props) {
+const Header = (props) => {
   return (
-    <h1>{props.course}</h1>
+    <div>
+      <h1>{props.course}</h1>
+    </div>
   )
 }
 
-function Content(props) {
+const Part= (props) => {
   return (
-    <p>
-      {props.part} {props.exercises}
-    </p>
+    <div>
+      <p> {props.part} {props.exercises} </p>
+    </div>
   )
 }
 
-function Total(props) {
+const Content= (props) => {
+  const list = []
+
+  for (let i=0; i<props.parts.length; i++) {
+    list.push(<Part part={props.parts[i]} exercises={props.exercises[i]} />)
+  }
+
   return (
-    <p>Number of exercises {props.sum}</p>
+    <div>
+      {list}
+    </div>
+  )
+}
+
+const Total = (props) => {
+  return (
+    <div>
+      <p>Number of exercises {props.sum}</p>
+    </div>
   )
 }
 
@@ -26,13 +44,13 @@ const App = () => {
   const exercises2 = 7
   const part3 = 'State of a component'
   const exercises3 = 14
+  const parts=[part1, part2, part3]
+  const exercises=[exercises1, exercises2, exercises3]
 
   return (
     <div>
       <Header course={course} />
-      <Content part={part1} exercises={exercises1} />
-      <Content part={part2} exercises={exercises2} />
-      <Content part={part3} exercises={exercises3} />
+      <Content parts={parts} exercises={exercises} />
       <Total sum={exercises1 + exercises2 + exercises3} />
     </div>
   )
