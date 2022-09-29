@@ -18,7 +18,7 @@ const Content= (props) => {
   const list = []
 
   for (let i=0; i<props.parts.length; i++) {
-    list.push(<Part part={props.parts[i]} exercises={props.exercises[i]} />)
+    list.push(<Part key={i} part={props.parts[i].name} exercises={props.parts[i].exercises} />)
   }
 
   return (
@@ -37,21 +37,34 @@ const Total = (props) => {
 }
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
-  const parts=[part1, part2, part3]
-  const exercises=[exercises1, exercises2, exercises3]
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
+  let sum = 0
+  course.parts.forEach((part)=>{
+    sum = sum + part.exercises
+    console.log(`new sum is: ${sum}`)
+  })
   return (
     <div>
-      <Header course={course} />
-      <Content parts={parts} exercises={exercises} />
-      <Total sum={exercises1 + exercises2 + exercises3} />
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total sum={sum} />
     </div>
   )
 }
